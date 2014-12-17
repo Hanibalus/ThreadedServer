@@ -12,7 +12,11 @@ public class ClientTest implements Runnable {
     public static final String SERVER_IP = "127.0.0.1";
     InputStream input;
     OutputStream output ;
+    private int iterations;
 
+    public ClientTest(int iter){
+        this.iterations = iter;
+    }
 
     @Override
     public void run() {
@@ -22,16 +26,30 @@ public class ClientTest implements Runnable {
             InputStream input  = socket.getInputStream();
             OutputStream output = socket.getOutputStream();
 
-            while(true){
-                if ( input.available() > 0 ) {
-                    byte[] receivedBytes = new byte[BUFFER_SIZE];
-                    int received = input.read(receivedBytes, 0, receivedBytes.length);
-                    System.out.println(new String(receivedBytes, "UTF-8"));
-                }
+            long startDate = System.currentTimeMillis()/1000L;
+            for(int i = 0 ; i < iterations ; i++){
+                output.write(("1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890\n").getBytes());
+
+                byte[] receivedBytes = new byte[BUFFER_SIZE];
+                //System.out.println("Waiting read\n");
+                int received = input.read(receivedBytes, 0, receivedBytes.length);
+                //System.out.println(new String(receivedBytes, "UTF-8"));
+
             }
 
+            long endDate = System.currentTimeMillis()/1000L;
+            long rate = iterations/(endDate - startDate);
+
+            System.out.println("Rate " + rate + "\n");
+
+            Thread.sleep(3000);
+            input.close();
+            output.close();
+            socket.close();
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

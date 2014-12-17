@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ThreadedServer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ThreadedServer_jar</output-path>
+    <root id="archive" name="ThreadedServer.jar">
+      <element id="module-output" name="ThreadedServer" />
+    </root>
+  </artifact>
+</component>

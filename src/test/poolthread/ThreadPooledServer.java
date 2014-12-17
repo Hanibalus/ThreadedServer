@@ -15,7 +15,7 @@ public class ThreadPooledServer implements Runnable{
     protected boolean      isStopped    = false;
     protected Thread       runningThread= null;
     protected ExecutorService threadPool =
-            Executors.newFixedThreadPool(10);
+            Executors.newFixedThreadPool(100);
 
     public ThreadPooledServer(int port){
         this.serverPort = port;
